@@ -11,14 +11,37 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.pogoscrapper.ui.theme.PoGOScrapperTheme
+import com.example.pogoscrapper.data.AppDatabase
+import com.example.pogoscrapper.data.Pokemon
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppDatabase.getInstance(applicationContext).pokemonDAO().insertAll(
+            Pokemon(
+                "1",
+                "Bulbasaur",
+                100,
+                100,
+                100,
+                "Vine Whip",
+                "Razor Leaf",
+                "Vine Whip",
+                listOf("Power Whip"),
+                listOf("Sludge Bomb"),
+                listOf("Sludge Bomb")
+            )
+        )
+        AppDatabase.getInstance(applicationContext).pokemonDAO().getAll().forEach {
+            println(it)
+        }
         setContent {
             PoGOScrapperTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
                     Greeting("Android")
                 }
             }

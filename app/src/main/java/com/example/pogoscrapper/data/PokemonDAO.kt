@@ -10,6 +10,7 @@ import androidx.room.Update
 interface PokemonDAO {
     @Query("SELECT * FROM pokemon")
     fun getAll(): List<Pokemon>
+
     @Query("SELECT * FROM pokemon WHERE `Species Name` LIKE :name")
     fun findByName(name: String): Pokemon
 
@@ -19,6 +20,6 @@ interface PokemonDAO {
     @Update
     fun updateAll(vararg pokemon: Pokemon)
 
-    @Delete
-    fun deleteAll()
+    @Query("DELETE FROM pokemon")
+    fun clear()
 }
